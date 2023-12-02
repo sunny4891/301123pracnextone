@@ -1,5 +1,14 @@
 import { ObjectId } from "mongodb";
 import { connectDB } from "../../../../lib/db";
+import Cors from "cors";
+import initMiddleware from "../../lib/init-middleware";
+
+// Initialize the cors middleware
+const cors = initMiddleware(
+  Cors({
+    methods: ["GET", "POST", "OPTIONS"],
+  })
+);
 
 export async function GET(req) {
   const searchParams = req?.nextUrl?.searchParams;
