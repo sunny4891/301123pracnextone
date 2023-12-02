@@ -1,33 +1,19 @@
+import { ObjectId } from "mongodb";
+import { connectDB } from "../../../../lib/db";
+
 export async function GET(req) {
   const searchParams = req?.nextUrl?.searchParams;
-  const name = searchParams?.get("stock_name");
-  const data = await database();
-  if (!name) {
+  const _id = searchParams?.get("stockNameId");
+  const db = await connectDB();
+  const collection = db.collection("stockPrice");
+  const data = await collection.find({}).toArray();
+  if (!_id) {
     return Response.json(data);
   }
-  const result = data.filter(
-    (e) => e.stock.toLowerCase() == name.toLowerCase()
-  );
-  return Response.json(result?.[0]);
+  const result = await collection.findOne({ _id: new ObjectId(_id) });
+  return Response.json({ result });
 }
 
 function stockPrice(max, min) {
   return (Math.random(0, 1) * (max - min) + min).toFixed(2);
-}
-
-function database() {
-  return [
-    {
-      stock: "idfc",
-      price: parseFloat(stockPrice(126, 124)),
-    },
-    {
-      stock: "sbi",
-      price: parseFloat(stockPrice(424, 436)),
-    },
-    {
-      stock: "yesbank",
-      price: parseFloat(stockPrice(200, 210)),
-    },
-  ];
 }
