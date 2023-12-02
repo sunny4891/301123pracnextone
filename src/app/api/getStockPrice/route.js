@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { connectDB } from "../../../../lib/db";
 import Cors from "cors";
-import initMiddleware from "../../lib/init-middleware";
+import initMiddleware from "../../../../lib/init-middleware";
 
 // Initialize the cors middleware
 const cors = initMiddleware(
