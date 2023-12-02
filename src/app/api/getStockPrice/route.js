@@ -13,7 +13,9 @@ const cors = initMiddleware(
 export async function GET(req) {
   const searchParams = req?.nextUrl?.searchParams;
   const _id = searchParams?.get("stockNameId");
+
   const db = await connectDB();
+
   const collection = db.collection("stockPrice");
   const data = await collection.find({}).toArray();
   if (!_id) {
