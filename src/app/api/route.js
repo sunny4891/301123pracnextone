@@ -2,8 +2,7 @@ function data() {
   return "Prasenjit Saha";
 }
 
-export async function POST(req) {
+export async function GET(req) {
   //   console.log(request);
-  let { name } = await req.json();
-  return Response.json({ data: name });
+  return Response.json({ data: "Prasenjit Saha" });
 }
